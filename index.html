@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Stories</title>
+</head>
+<body>
+  <h1>Latest 6 Stories from Time.com</h1>
+  <ul id="stories"></ul>
+
+  <script>
+    const apiUrl = 'http://localhost:3000/getTimeStories';
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const storiesList = document.getElementById('stories');
+        data.forEach(story => {
+          const listItem = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = story.link;
+          link.textContent = story.title;
+          listItem.appendChild(link);
+          storiesList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html>
